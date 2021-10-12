@@ -79,10 +79,123 @@ window.onload = (function () {
             });
     });
 
+    //Savings account
 
-    //Savings Account
-    // describe("SavingsAccount: ",()=>{
-    //     it()
-    // })
+    describe('savingsAccount: getInterest', function () {
+
+        it('should return interest on the account', function () {
+
+            let account = new SavingsAccount(123, 10);
+
+            assert.equal(10, account.getInterest());
+
+        });
+
+    });
+
+
+
+    describe('savingsAccount: setInterest', function () {
+
+        it('should return interest set on the account', function () {
+
+            let account = new SavingsAccount(123, 10);
+
+            account.setInterest(15);
+
+            assert.equal(15, account.getInterest());
+
+        });
+
+    });
+
+
+
+    describe('SavingsAccount: addInterest', function () {
+
+        it('should add interest to the account balance', function () {
+
+            let account = new SavingsAccount(123, 10);
+
+            account.deposit(100);
+
+            account.addInterest(10);
+
+            assert.equal(10, account.getInterest());
+
+        });
+
+    });
+
+
+
+    describe('SavingsAccount: toString', function () {
+
+        it('should display Savings account description', function () {
+
+            let account = new SavingsAccount(224, 10);
+
+            account.deposit(1000);
+
+            assert.equal(
+
+                'Savings Account no: 224 Interest: 10 Balance: 1000',
+
+                account.toString()
+
+            );
+
+        });
+
+    });
+
+    describe('SavingsAccount: endOfMonth', function () {
+
+        it('should display Savings account interest added for the month', function () {
+
+            let account = new SavingsAccount(224, 10);
+
+            account.deposit(100);
+
+            assert.equal(
+
+                '10 Interest was added to saving account no: 224, current balance: 110',
+
+                account.endOfMonth()
+
+            );
+
+        });
+
+    });
+
+    //Checking Account
+
+    describe('CheckingAccount: getOverdraftLimit', function () {
+
+        it('should return the overdraft limit for an account', function () {
+
+            let account = new CheckingAccount(224, 100);
+
+
+
+            assert.equal(100, account.getOverDraftLimit());
+
+        });
+
+    });
+
+
+
+    describe('CheckingAccount: setOverdraftLimit', function () {
+
+        it('should set a new overdraft limit for an account', function () {
+            let account = new CheckingAccount(224, 100);
+            account.setOverDraftLimit(200);
+            assert.equal(200, account.getOverDraftLimit());
+
+        });
+
+    });
     mocha.run();
 })

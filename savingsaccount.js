@@ -18,7 +18,7 @@ class SavingsAccount  extends Account{
     }
 
     toString() {
-        return "Savings Account no: "+this.getNumber()+",Interest: "+this.getInterest()+" Balance: "+this.getBalance();
+        return "Savings Account no: "+this.getNumber()+" Interest: "+this.getInterest()+" Balance: "+this.getBalance();
     }
 
     endOfMonth() {
