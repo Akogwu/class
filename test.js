@@ -185,8 +185,6 @@ window.onload = (function () {
 
     });
 
-
-
     describe('CheckingAccount: setOverdraftLimit', function () {
 
         it('should set a new overdraft limit for an account', function () {
@@ -197,5 +195,103 @@ window.onload = (function () {
         });
 
     });
+
+    describe('CheckingAccount: toString', function () {
+
+        it('should display Checking account description', function () {
+
+            let account = new CheckingAccount(224, 10);
+            account.deposit(1000);
+
+            assert.equal(
+                'Checking Account no: 224, Over Draft Amount: 10 balance: 1000',
+                account.toString()
+
+            );
+
+        });
+
+    });
+
+    describe('CheckingAccount: endOfMonth', function () {
+        it('should display Checking account low balance', function () {
+            let checkingAccount = new CheckingAccount(224, 10);
+            assert.equal(
+                "",
+                checkingAccount.endOfMonth()
+
+            );
+
+        });
+
+    });
+
+
+    describe("Bank : addAccount", function () {
+        it("takes no arguments and adds an account to account list and returns number of accounts created",
+            function () {
+                let bank = new Bank();
+                bank.addAccount();
+                assert.equal(2, bank.addAccount());
+            });
+    });
+    describe("Bank : addSavingAccount", function () {
+        it("takes interest and adds saving account to account list and returns number of accounts created",
+            function () {
+                let bank = new Bank();
+                bank.addAccount();
+                bank.addSavingsAccount(10);
+                assert.equal(3, bank.addSavingsAccount(1200));
+            });
+    });
+    describe("Bank : addCheckingAccount", function () {
+        it("takes overdraft and adds checking account to account list and returns number of accounts created",
+            function () {
+                let bank = new Bank();
+                bank.addAccount();
+                bank.addSavingsAccount(10);
+                bank.addCheckingAccount(10000);
+                assert.equal(4, bank.addCheckingAccount(12000));
+            });
+    });
+    describe("Bank : closeAccount", function () {
+        it("takes an account number and removes an object of with that account number",
+            function () {
+                let bank = new Bank();
+                bank.addAccount();
+                bank.addSavingsAccount(10);
+                bank.addCheckingAccount(10000);
+                bank.closeAccount(11);
+                assert.deepEqual([{_number: 10, _balance:0}, {_number:12, _balance: 0, _overDraftLimit:10000}], bank.accountObjects);
+            });
+    });
+    describe("Bank : accountReport", function () {
+        it("takes no arguments and returns a string of list of all the accounts",
+            function () {
+                let bank = new Bank();
+                bank.addAccount();
+                bank.addSavingsAccount(10);
+                bank.addCheckingAccount(10000);
+                assert.equal("Account 13: balance 0\nAccount No: 14, Balance: 0, Interest: 10\nAccount No: 15, Balance: 0, OverDraftAmount: 10000", bank.accountReport());
+            });
+    });
+
+
+
+    //Bank
+
+    describe("Bank : endOfMonth", function () {
+        it("takes no arguments and returns a string of output of endOfMonth() function from all the objects",
+            function () {
+                let bank = new Bank();
+                bank.addAccount();
+                bank.addSavingsAccount(10);
+                bank.accountObjects[bank.accountList.length-1].deposit(1000);
+                bank.addCheckingAccount(10000);
+                bank.accountObjects[bank.accountObjects.length-1].withdraw(2000);
+                assert.equal("\n,Interest added SavingsAccount 17: balance: 1100 interest: 10\n,Warning, low balance CheckingAccount 18: balance: -2000 overdraft limit: 10000\n", bank.endOfMonth());
+            });
+    });
+
     mocha.run();
 })

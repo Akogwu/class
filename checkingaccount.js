@@ -13,11 +13,12 @@ class CheckingAccount extends Account{
     }
 
     toString() {
-        return "Checking Account no: "+this.getNumber()+", Over Draft Amount: "+this.getOverDraftLimit()+" balance: "+this.overdraft_limit;
+        return "Checking Account no: "+this.getNumber()+", Over Draft Amount: "+this.getOverDraftLimit()+" balance: "+this.getBalance();
     }
 
     endOfMonth() {
         if (this.getBalance() < 0)
-            return "Warning, low balance CheckingAccount "+this.getNumber()+" balance: "+this.getBalance()+" Overdraft limit:: "+this.getOverDraftLimit();
+            return "Warning, low balance CheckingAccount "+this.getNumber()+" balance: "+this.getBalance()+" Overdraft limit: "+this.getOverDraftLimit();
+    return "";
     }
 }
